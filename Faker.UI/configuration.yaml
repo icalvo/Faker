@@ -1,0 +1,64 @@
+﻿---
+  - 
+    url: "/"
+    method: "GET"
+    content-type: "text/plain"
+    content: FAKER 1.0 by Tunguska Team. Use configuration.yaml to configure your fakes.
+  - 
+    url: "api/v1/fakes/status/{statusCode}"
+    method: GET
+    content-type: application/json
+    status-code-parameter: statusCode
+    content: |
+      {
+        "controller": "Fake",
+        "action": "{statusCode}"
+      }
+  - 
+    url: "/api/v1/fakes/pmc/utils/publisher/pmcstat/xmlagent.cgi"
+    method: "GET"
+    content-type: "text/xml"
+    content: |
+        <journals>
+        <server>PMCMISC</server>
+        <database>PMC3</database>
+        <start>0</start>
+        <total>36</total>
+        <count>36</count>
+        <journal><row_idx>0</row_idx><PublisherId>169</PublisherId><RemoteUserName>frontiers</RemoteUserName><Name>Frontiers Media SA</Name><Abbrev>frontiers</Abbrev><DomainId>1239</DomainId><DomainName>frontagineuro</DomainName><PubMedJournalTitle>Front Aging Neurosci</PubMedJournalTitle><Issn></Issn><EIssn>1663-4365</EIssn></journal>
+        <journal><row_idx>1</row_idx><PublisherId>169</PublisherId><RemoteUserName>frontiers</RemoteUserName><Name>Frontiers Media SA</Name><Abbrev>frontiers</Abbrev><DomainId>644</DomainId><DomainName>frontbehavneuro</DomainName><PubMedJournalTitle>Front Behav Neurosci</PubMedJournalTitle><Issn/><EIssn>1662-5153</EIssn></journal>
+        <journal><row_idx>1</row_idx><PublisherId>169</PublisherId><RemoteUserName>frontiers</RemoteUserName><Name>Frontiers Media SA</Name><Abbrev>frontiers</Abbrev><DomainId>644</DomainId><DomainName>frontbb</DomainName><PubMedJournalTitle>Front Behav Neurosci</PubMedJournalTitle><Issn/><EIssn>1662-5153</EIssn></journal>
+        </journals>
+  -
+    url: "/api/v1/fakes/utils/rest/user/session"
+    content: |
+        {
+        "id": 3,
+        "display_name": "Impacts Data API Client",
+        "first_name": "Impacts Data",
+        "last_name": "API Client",
+        "email": "ImpactsDataAPI@frontiersin.org",
+        "is_sys_admin": false,
+        "last_login_date": "2015-04-12 23:40:59",
+        "role": "Impacts Data API Data Reader",
+        "role_id": 1,
+        "dsp_name": "api",
+        "ticket": "fc1wRVsW77QPYvmlxeCP0aQ4hEp00QTrCSLUgsmc8JU,",
+        "ticket_expiry": 1428907970,
+        "session_id": "07fb7betjfbfi5aj8mf8cu4ic0",
+        "app_groups": [],
+        "no_group_apps": [
+            {
+            "id": 5,
+            "api_name": "ImpactsDataAPI",
+            "name": "Impacts Data API",
+            "description": "",
+            "is_url_external": false,
+            "launch_url": "http://api.dwh.test-frontiersin.net/files/applications/ImpactsDataAPI/index.html",
+            "requires_fullscreen": false,
+            "allow_fullscreen_toggle": true,
+            "toggle_location": "top",
+            "is_default": true
+            }
+        ]
+        }    
