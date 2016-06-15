@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Faker.UI;
 using FluentAssertions;
 using Microsoft.Owin.Testing;
@@ -20,13 +21,13 @@ namespace Faker.Tests
 
 
         [Fact]
-        public void Defaults_WhenGet_ReturnsOkAndSpecifiedResult()
+        public async Task Defaults_WhenGet_ReturnsOkAndSpecifiedResult()
         {
-            var response = _server.HttpClient.GetAsync("api/defaults").Result;
+            var response = await _server.HttpClient.GetAsync("api/defaults");
             var result = response.Content.ReadAsStringAsync().Result;
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.ContentType.MediaType = "application/json";
-            result.Should().Be("91823746");
+            result.Should().BeEmpty();
         }
 
         [Fact]
@@ -36,6 +37,21 @@ namespace Faker.Tests
             var result = response.Content.ReadAsStringAsync().Result;
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
             result.Should().Be("FAKER did not find any valid response.");
+        }
+
+        [Fact]
+        public void MultipleMethods_WhenGetAndPosts_ReturnsOkAndSpecifiedResult()
+        {
+            HttpResponseMessage response;
+            string result;
+            response = _server.HttpClient.GetAsync("api/multiplemethods").Result;
+            result = response.Content.ReadAsStringAsync().Result;
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            response = _server.HttpClient.PostAsync("api/multiplemethods", new StringContent("")).Result;
+            result = response.Content.ReadAsStringAsync().Result;
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Headers.ContentType.MediaType = "application/json";
         }
 
         [Fact]
