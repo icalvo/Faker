@@ -1,0 +1,14 @@
+﻿---
+  -
+    url: "api/defaults"
+    content: "91823746"
+  - 
+    url: "api/statuscode"
+    method: GET
+    content-type: application/json
+    status-code: 502
+    content: |
+      {
+        "controller": "Fake",
+        "action": "{statusCode}"
+      }

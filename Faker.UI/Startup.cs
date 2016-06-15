@@ -24,13 +24,13 @@ namespace Faker.UI
             {
                 LoadResponses();
 
-                var r = _responses
-                    .FirstOrDefault(x => x.Matches(context.Request));
-
-                if (r == null)
-                {
-                    throw new NotImplementedException();
-                }
+                var r = _responses.FirstOrDefault(x => x.Matches(context.Request)) ?? 
+                    new Response
+                    {
+                        ContentType = "text/plain",
+                        StatusCode = 404,
+                        Content = "FAKER did not find any valid response."
+                    };
 
                 context.Response.ContentType = r.ContentType;
                 context.Response.StatusCode = r.Status(context.Request);
@@ -40,8 +40,7 @@ namespace Faker.UI
 
         private static void LoadResponses()
         {
-            var configPath = System.Configuration.ConfigurationManager.AppSettings["ConfigurationFile"];
-            var path = Path.Combine(configPath, "configuration.yaml");
+            var path = System.Configuration.ConfigurationManager.AppSettings["ConfigurationFile"];
             if (_dateModified.HasValue && File.GetLastWriteTime(path) <= _dateModified.Value)
             {
                 return;
@@ -94,10 +93,10 @@ namespace Faker.UI
         public string StatusCodeParameter { get; set; }
         public bool Matches(IOwinRequest request)
         {
-            var toMatch = request.Path + request.QueryString;
+            var requestPath = request.Path + request.QueryString;
 
             return 
-                toMatch == Url &&
+                requestPath == "/" + Url.TrimStart('/') &&
                 (Method == request.Method ||
                  Methods.Contains(request.Method));
         }

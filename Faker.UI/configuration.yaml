@@ -5,10 +5,10 @@
     content-type: "text/plain"
     content: FAKER 1.0 by Tunguska Team. Use configuration.yaml to configure your fakes.
   - 
-    url: "api/v1/fakes/status/{statusCode}"
+    url: "api/v1/fakes/status/500"
     method: GET
     content-type: application/json
-    status-code-parameter: statusCode
+    status-code: 500
     content: |
       {
         "controller": "Fake",
@@ -16,7 +16,7 @@
       }
   - 
     url: "/api/v1/fakes/pmc/utils/publisher/pmcstat/xmlagent.cgi"
-    method: "GET"
+    method: "POST"
     content-type: "text/xml"
     content: |
         <journals>
@@ -62,3 +62,96 @@
             }
         ]
         }    
+  -
+    url: "api/v1/fakes/pmc/utils/publisher/pmcstat/pmcstat.cgi?type=summary&jrid=frontagineuro"
+    method: "POST"
+    content-type: "text/xml"
+    content: |
+        <pmc-web-stat>
+            <request jrid=""frontagineuro"" eissn=""1663-4365"" />
+            <response status=""0"" collection=""Front Aging Neurosci"" />
+            <monthly-stat>
+            <monthly-data year=""2013"" month=""1"" unique-ip=""1965"" full-text=""2100"" pdf=""979"" available=""78"" />
+            <monthly-data year=""2013"" month=""2"" unique-ip=""2536"" full-text=""3015"" pdf=""916"" available=""108"" />
+            <monthly-data year=""2013"" month=""3"" unique-ip=""2536"" full-text=""3015"" pdf=""916"" available=""108"" />
+            </monthly-stat>
+        </pmc-web-stat>
+  -
+    url: "api/v1/fakes/pmc/utils/publisher/pmcstat/pmcstat.cgi?type=summary&jrid=frontbehavneuro"
+    method: "POST"
+    content-type: "text/xml"
+    content: |
+        <pmc-web-stat>
+            <request jrid=""frontbehavneuro"" eissn=""1663-4365"" />
+            <response status=""0"" collection=""Front Aging Neurosci"" />
+            <monthly-stat>
+            <monthly-data year=""2013"" month=""1"" unique-ip=""1965"" full-text=""2100"" pdf=""979"" available=""78"" />                                             
+            <monthly-data year=""2013"" month=""3"" unique-ip=""2536"" full-text=""3015"" pdf=""916"" available=""108"" />
+            </monthly-stat>
+        </pmc-web-stat>
+  -
+    url: "api/v1/fakes/pmc/utils/publisher/pmcstat/pmcstat.cgi?type=summary&jrid=frontbb"
+    method: "POST"
+    content-type: "text/xml"
+    content: |
+        <pmc-web-stat>
+            <request jrid=""frontbb"" eissn=""1663-4365"" />
+            <response status=""0"" collection=""Front Aging Neurosci"" />
+            <monthly-stat>
+            <monthly-data year=""2013"" month=""1"" unique-ip=""1965"" full-text=""2100"" pdf=""979"" available=""78"" />
+            <monthly-data year=""2013"" month=""2"" unique-ip=""2536"" full-text=""3015"" pdf=""916"" available=""108"" />
+            <monthly-data year=""2013"" month=""3"" unique-ip=""2536"" full-text=""3015"" pdf=""916"" available=""108"" />
+            </monthly-stat>
+        </pmc-web-stat>
+  -
+    url: "api/v1/fakes/altmetric/v1/fetch/doi/{doi}"
+    method: "POST"
+    content-type: "application/json"
+    content: |
+        {
+            "altmetric_id": {AltmetricId},
+            "counts": {
+                "readers": {
+                    ~Readers
+                },
+                "total": {
+                    "posts_count": ~PostCount
+                }
+            },
+            "citation": {
+                "title": "~Title",
+                "authors": [ "~Authors" ],
+                "pubdate": "~PubDate",
+                "doi": "~Doi",
+                "pmid": "",
+                "journal": "~Journal",
+                "altmetric_jid": "",
+                "publisher": "",
+                "links": [
+                    "http://journal.frontiersin.org/Journal/~Doi/abstract",
+                    "http://journal.frontiersin.org/Journal/~Doi/full"
+                ],
+                "first_seen_on": "~PubDate",
+                "abstract": "",
+                "abstract_source": "",
+                "mendeley_url": ""
+            },
+            "altmetric_score": {
+                "score": ~Score
+            },
+            "demographics": {
+                "geo": {
+                    ~Geo
+                },
+                "posts": {
+                    ~Posts
+                },
+                "score": ~Score,
+                "images": {
+                    "small": "https://altmetric-badges.a.ssl.fastly.net/?size=64&score=5&types=tttttttt",
+                    "medium": "https://altmetric-badges.a.ssl.fastly.net/?size=100&score=5&types=tttttttt",
+                    "large": "https://altmetric-badges.a.ssl.fastly.net/?size=180&score=5&types=tttttttt"
+                }
+            }
+        }    
+    
