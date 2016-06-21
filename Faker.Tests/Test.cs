@@ -5,7 +5,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Faker.UI;
 using FluentAssertions;
+using Microsoft.Owin.Hosting;
 using Microsoft.Owin.Testing;
+using Owin;
 using Xunit;
 
 namespace Faker.Tests
@@ -18,7 +20,6 @@ namespace Faker.Tests
         {
             _server = TestServer.Create<Startup>();
         }
-
 
         [Fact]
         public async Task Defaults_WhenGet_ReturnsOkAndSpecifiedResult()

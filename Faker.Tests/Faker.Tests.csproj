@@ -94,13 +94,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Faker.UI\Faker.UI.csproj">
-      <Project>{73c2dcf5-7572-44ab-b1b2-b89550a5bd3a}</Project>
-      <Name>Faker.UI</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\Faker.Library\Faker.Library.csproj">
+      <Project>{68ec182e-c602-4955-b0d2-4ab157bcf69a}</Project>
+      <Name>Faker.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

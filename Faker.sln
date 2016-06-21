@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.UI", "Faker.UI\Faker.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Tests", "Faker.Tests\Faker.Tests.csproj", "{8846733A-8E9C-439F-8623-182A3D4306D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.CommandLine", "Faker.CommandLine\Faker.CommandLine.csproj", "{C226F407-6636-40CA-9907-66F9799567BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Library", "Faker.Library\Faker.Library.csproj", "{68EC182E-C602-4955-B0D2-4AB157BCF69A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{8846733A-8E9C-439F-8623-182A3D4306D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8846733A-8E9C-439F-8623-182A3D4306D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8846733A-8E9C-439F-8623-182A3D4306D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C226F407-6636-40CA-9907-66F9799567BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C226F407-6636-40CA-9907-66F9799567BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C226F407-6636-40CA-9907-66F9799567BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C226F407-6636-40CA-9907-66F9799567BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68EC182E-C602-4955-B0D2-4AB157BCF69A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68EC182E-C602-4955-B0D2-4AB157BCF69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68EC182E-C602-4955-B0D2-4AB157BCF69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68EC182E-C602-4955-B0D2-4AB157BCF69A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
