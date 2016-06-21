@@ -90,7 +90,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="configuration.yaml" />
+    <None Include="configuration.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace Faker.UI
+﻿namespace Faker.Library
 {
     public class EndpointResponse
     {

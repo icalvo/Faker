@@ -1,5 +1,5 @@
 ﻿using System;
-using Faker.UI;
+using Faker.Library;
 using Microsoft.Owin.Hosting;
 
 namespace Faker.CommandLine

@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Faker.UI
+namespace Faker.Library
 {
     public class YamlEndpointRepository : IEndpointRepository
     {
@@ -15,6 +16,14 @@ namespace Faker.UI
         public IEnumerable<Endpoint> All()
         {
             var path = System.Configuration.ConfigurationManager.AppSettings["ConfigurationFile"];
+
+            if (!Path.IsPathRooted(path))
+            {
+                path = Path.Combine(
+                    Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath),
+                    path);
+            }
+
             if (_dateModified.HasValue && File.GetLastWriteTime(path) <= _dateModified.Value)
             {
                 return _endpoints;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Faker.UI;
+using Faker.Library;
 using FluentAssertions;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.Testing;

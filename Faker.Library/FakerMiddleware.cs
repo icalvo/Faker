@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Owin;
 
-namespace Faker.UI
+namespace Faker.Library
 {
     public class FakerMiddleware
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Faker.UI
+namespace Faker.Library
 {
     public interface IEndpointRepository
     {

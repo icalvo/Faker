@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Faker.Library;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Faker.UI.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
-namespace Faker.UI
+namespace Faker.Library
 {
     public class Startup
     {
