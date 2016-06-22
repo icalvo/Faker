@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 
@@ -7,31 +8,53 @@ namespace Faker.Library
     public class FakerMiddleware
     {
         private readonly IEndpointRepository _endpointRepo;
+        private readonly IMatcher _matcher;
+        private readonly IReplacer _replacer;
 
-        public FakerMiddleware(IEndpointRepository endpointRepo)
+        public FakerMiddleware(
+            IEndpointRepository endpointRepo, 
+            IMatcher matcher, 
+            IReplacer replacer)
         {
             _endpointRepo = endpointRepo;
+            _matcher = matcher;
+            _replacer = replacer;
         }
 
         public async Task Handle(IOwinContext context)
         {
-            var r = _endpointRepo.All()
-                .Select(e => e.TryMatch(context.Request))
-                .FirstOrDefault(x => x != null) 
-                ?? new EndpointResponse
-                {
-                    ContentType = "text/plain",
-                    StatusCode = 404,
-                    Content = "FAKER did not find any valid response."
-                };
-            context.Response.ContentType = r.ContentType;
-            context.Response.StatusCode = r.StatusCode;
-            if (r.Content == null)
+            EndpointMatch match = _endpointRepo
+                .All()
+                .Select(e => _matcher.Match(context.Request, e))
+                .FirstOrDefault(e => e != null);
+
+            var response = match != null 
+                ? _replacer.Replace(match) 
+                : DefaultResponse();
+
+            await CopyResponseAsync(context, response);
+        }
+
+        private static async Task CopyResponseAsync(IOwinContext context, EndpointResponse response)
+        {
+            context.Response.ContentType = response.ContentType;
+            context.Response.StatusCode = response.StatusCode;
+            if (response.Content == null)
             {
                 return;
             }
 
-            await context.Response.WriteAsync(r.Content);
+            await context.Response.WriteAsync(response.Content);
+        }
+
+        private static EndpointResponse DefaultResponse()
+        {
+            return new EndpointResponse
+            {
+                ContentType = "text/plain",
+                StatusCode = 404,
+                Content = "FAKER did not find any valid response."
+            };
         }
     }
 }

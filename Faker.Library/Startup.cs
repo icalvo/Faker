@@ -13,7 +13,10 @@ namespace Faker.Library
 
         public Startup()
         {
-            _fakerMiddleware = new FakerMiddleware(new YamlEndpointRepository());
+            _fakerMiddleware = new FakerMiddleware(
+                new YamlEndpointRepository(),
+                new SimpleMatcher(), 
+                new SimpleReplacer());
         }
 
         [SuppressMessage("ReSharper", "UnusedMember.Global",

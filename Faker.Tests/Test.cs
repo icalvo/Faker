@@ -63,7 +63,16 @@ namespace Faker.Tests
             response.StatusCode.Should().Be(HttpStatusCode.BadGateway);
             result.Should().NotBeEmpty();
         }
-        
+
+        [Fact(Skip="Matching not yet implemented")]
+        public void UrlMatching_Works()
+        {
+            var response = _server.HttpClient.GetAsync("api/match1/457").Result;
+            var result = response.Content.ReadAsStringAsync().Result;
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result.Should().Be("match1");
+        }
+
         public void Dispose()
         {
             _server.Dispose();

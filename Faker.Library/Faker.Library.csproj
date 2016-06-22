@@ -54,10 +54,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Endpoint.cs" />
+    <Compile Include="EndpointMatch.cs" />
     <Compile Include="EndpointResponse.cs" />
     <Compile Include="FakerMiddleware.cs" />
     <Compile Include="IEndpointRepository.cs" />
+    <Compile Include="IMatcher.cs" />
+    <Compile Include="IReplacer.cs" />
+    <Compile Include="SimpleMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleReplacer.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="YamlEndpointRepository.cs" />
   </ItemGroup>
