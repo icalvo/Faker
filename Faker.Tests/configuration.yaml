@@ -21,3 +21,6 @@
   - 
     url: "api/match1/\\d+"
     content: "match1"
+  - 
+    url: "api/match2/(?<number>\\d+)"
+    content: "replacement({number})"

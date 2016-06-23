@@ -5,7 +5,7 @@ using Microsoft.Owin;
 
 namespace Faker.Library
 {
-    public class Endpoint
+    internal class Endpoint
     {
         public string Url { get; set; }
         public string Method { get; set; } = "GET";
@@ -27,5 +27,9 @@ namespace Faker.Library
         }
         
         public int StatusCode { get; set; } = 200;
+
+        public string Matcher { get; set; }
+
+        public string Replacer { get; set; }
     }
 }

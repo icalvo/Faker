@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Faker.Library;
+using Faker.Library.Matchers;
+using Faker.Library.Replacers;
 using Microsoft.Owin;
 using Owin;
 
@@ -15,8 +17,8 @@ namespace Faker.Library
         {
             _fakerMiddleware = new FakerMiddleware(
                 new YamlEndpointRepository(),
-                new RegExMatcher(), 
-                new SimpleReplacer());
+                new PluginMatcher(), 
+                new PluginReplacer());
         }
 
         [SuppressMessage("ReSharper", "UnusedMember.Global",

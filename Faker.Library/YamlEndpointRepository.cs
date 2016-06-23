@@ -8,7 +8,7 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Faker.Library
 {
-    public class YamlEndpointRepository : IEndpointRepository
+    internal class YamlEndpointRepository : IEndpointRepository
     {
         private static List<Endpoint> _endpoints;
         private static DateTime? _dateModified;

@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Faker.Library.Matchers;
+using Faker.Library.Replacers;
 using Microsoft.Owin;
 
 namespace Faker.Library
 {
-    public class FakerMiddleware
+    internal class FakerMiddleware
     {
         private readonly IEndpointRepository _endpointRepo;
         private readonly IMatcher _matcher;

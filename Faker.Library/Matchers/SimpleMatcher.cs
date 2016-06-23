@@ -1,9 +1,9 @@
 using System.Linq;
 using Microsoft.Owin;
 
-namespace Faker.Library
+namespace Faker.Library.Matchers
 {
-    public class SimpleMatcher : IMatcher
+    internal class SimpleMatcher : IMatcher
     {
         public EndpointMatch Match(IOwinRequest request, Endpoint endpoint)
         {

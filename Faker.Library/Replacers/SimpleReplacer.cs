@@ -1,7 +1,7 @@
-namespace Faker.Library
+namespace Faker.Library.Replacers
 {
-    public class SimpleReplacer : IReplacer
-    {
+    internal class SimpleReplacer : IReplacer
+    { 
         public EndpointResponse Replace(EndpointMatch match)
         {
             return new EndpointResponse

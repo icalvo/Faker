@@ -1,6 +1,6 @@
 ﻿namespace Faker.Library
 {
-    public class EndpointResponse
+    internal class EndpointResponse
     {
         public string Url { get; set; }
         public string Method { get; set; }

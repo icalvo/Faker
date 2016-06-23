@@ -1,8 +1,8 @@
 using Microsoft.Owin;
 
-namespace Faker.Library
+namespace Faker.Library.Matchers
 {
-    public interface IMatcher
+    internal interface IMatcher
     {
         EndpointMatch Match(IOwinRequest request, Endpoint endpoint);
     }

@@ -1,6 +1,6 @@
-namespace Faker.Library
+namespace Faker.Library.Replacers
 {
-    public interface IReplacer
+    internal interface IReplacer
     {
         EndpointResponse Replace(EndpointMatch match);
     }

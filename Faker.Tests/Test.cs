@@ -48,7 +48,7 @@ namespace Faker.Tests
         [Fact]
         public async Task SpecifiedStatusCode_IsReturned()
         {
-            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/match1/statuscode"));
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/statuscode"));
             actual.Response.StatusCode.Should().Be(HttpStatusCode.BadGateway);
             actual.Result.Should().NotBeEmpty();
         }
@@ -66,6 +66,14 @@ namespace Faker.Tests
         {
             var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/match1/invalid"));
             actual.ShouldNotMatchAnyRule();
+        }
+
+        [Fact]
+        public async Task UrlReplacement_WhenMatch_Replaces()
+        {
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/match2/457"));
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            actual.Result.Should().Be("replacement(457)");
         }
 
         public void Dispose()
