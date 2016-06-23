@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Faker.Library;
 using FluentAssertions;
-using Microsoft.Owin.Hosting;
 using Microsoft.Owin.Testing;
-using Owin;
 using Xunit;
 
 namespace Faker.Tests
@@ -24,58 +21,78 @@ namespace Faker.Tests
         [Fact]
         public async Task Defaults_WhenGet_ReturnsOkAndSpecifiedResult()
         {
-            var response = await _server.HttpClient.GetAsync("api/defaults");
-            var result = response.Content.ReadAsStringAsync().Result;
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            response.Content.Headers.ContentType.MediaType = "application/json";
-            result.Should().BeEmpty();
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/defaults"));
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            actual.Response.Content.Headers.ContentType.MediaType = "application/json";
+            actual.Result.Should().BeEmpty();
         }
 
         [Fact]
-        public void Defaults_WhenPost_ReturnsNotFound()
+        public async Task Defaults_WhenPost_ReturnsNotFound()
         {
-            var response = _server.HttpClient.PostAsync("api/defaults", new StringContent("")).Result;
-            var result = response.Content.ReadAsStringAsync().Result;
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            result.Should().Be("FAKER did not find any valid response.");
+            var actual = new ResponseAndResult(await _server.HttpClient.PostAsync("api/defaults", new StringContent("")));
+            actual.ShouldNotMatchAnyRule();
         }
 
         [Fact]
-        public void MultipleMethods_WhenGetAndPosts_ReturnsOkAndSpecifiedResult()
+        public async Task MultipleMethods_WhenGetAndPosts_ReturnsOkAndSpecifiedResult()
         {
-            HttpResponseMessage response;
-            string result;
-            response = _server.HttpClient.GetAsync("api/multiplemethods").Result;
-            result = response.Content.ReadAsStringAsync().Result;
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            response.Content.Headers.ContentType.MediaType = "application/json";
-            response = _server.HttpClient.PostAsync("api/multiplemethods", new StringContent("")).Result;
-            result = response.Content.ReadAsStringAsync().Result;
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            response.Content.Headers.ContentType.MediaType = "application/json";
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/multiplemethods"));
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            actual.Response.Content.Headers.ContentType.MediaType = "application/json";
+            actual = new ResponseAndResult(await _server.HttpClient.PostAsync("api/multiplemethods", new StringContent("")));
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            actual.Response.Content.Headers.ContentType.MediaType = "application/json";
         }
 
         [Fact]
-        public void SpecifiedStatusCode_IsReturned()
+        public async Task SpecifiedStatusCode_IsReturned()
         {
-            var response = _server.HttpClient.GetAsync("api/statuscode").Result;
-            var result = response.Content.ReadAsStringAsync().Result;
-            response.StatusCode.Should().Be(HttpStatusCode.BadGateway);
-            result.Should().NotBeEmpty();
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/match1/statuscode"));
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.BadGateway);
+            actual.Result.Should().NotBeEmpty();
         }
 
-        [Fact(Skip="Matching not yet implemented")]
-        public void UrlMatching_Works()
+        [Fact]
+        public async Task UrlMatching_WhenMatch_Works()
         {
-            var response = _server.HttpClient.GetAsync("api/match1/457").Result;
-            var result = response.Content.ReadAsStringAsync().Result;
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            result.Should().Be("match1");
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/match1/457"));
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            actual.Result.Should().Be("match1");
+        }
+
+        [Fact]
+        public async Task UrlMatching_WhenNoMatch_Discards()
+        {
+            var actual = new ResponseAndResult(await _server.HttpClient.GetAsync("api/match1/invalid"));
+            actual.ShouldNotMatchAnyRule();
         }
 
         public void Dispose()
         {
             _server.Dispose();
+        }
+    }
+
+
+    public class ResponseAndResult
+    {
+        public ResponseAndResult(HttpResponseMessage response)
+        {
+            Response = response;
+            Result = response.Content.ReadAsStringAsync().Result;
+        }
+
+        public HttpResponseMessage Response { get; }
+        public string Result { get; }
+    }
+
+    public static class ObjectAssertionsExtensions
+    {
+        public static void ShouldNotMatchAnyRule(this ResponseAndResult actual)
+        {
+            actual.Response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            actual.Result.Should().Be("FAKER did not find any valid response.");
         }
     }
 }

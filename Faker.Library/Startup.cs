@@ -15,7 +15,7 @@ namespace Faker.Library
         {
             _fakerMiddleware = new FakerMiddleware(
                 new YamlEndpointRepository(),
-                new SimpleMatcher(), 
+                new RegExMatcher(), 
                 new SimpleReplacer());
         }
 
