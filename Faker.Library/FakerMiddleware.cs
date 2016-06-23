@@ -24,9 +24,9 @@ namespace Faker.Library
 
         public async Task Handle(IOwinContext context)
         {
-            EndpointMatch match = _endpointRepo
+            RequestMatch match = _endpointRepo
                 .All()
-                .Select(e => _matcher.Match(context.Request, e))
+                .Select(e => _matcher.Match(e, ToRequest(context)))
                 .FirstOrDefault(e => e != null);
 
             var response = match != null 
@@ -34,6 +34,15 @@ namespace Faker.Library
                 : DefaultResponse();
 
             await CopyResponseAsync(context, response);
+        }
+
+        private Request ToRequest(IOwinContext context)
+        {
+            return new Request
+            {
+                Url = context.Request.Path + context.Request.QueryString,
+                Method = context.Request.Method
+            };
         }
 
         private static async Task CopyResponseAsync(IOwinContext context, EndpointResponse response)

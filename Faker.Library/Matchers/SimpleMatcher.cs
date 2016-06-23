@@ -5,16 +5,14 @@ namespace Faker.Library.Matchers
 {
     internal class SimpleMatcher : IMatcher
     {
-        public EndpointMatch Match(IOwinRequest request, Endpoint endpoint)
+        public RequestMatch Match(Endpoint endpoint, Request actual)
         {
-            var requestPath = request.Path + request.QueryString;
-
             if (
-                requestPath == "/" + endpoint.Url.TrimStart('/') &&
-                (endpoint.Method == request.Method ||
-                 endpoint.Methods.Contains(request.Method)))
+                actual.Url == "/" + endpoint.Request.Url.TrimStart('/') &&
+                (endpoint.Request.Method == actual.Method ||
+                 endpoint.Request.Methods.Contains(actual.Method)))
             {
-                return new EndpointMatch(requestPath, endpoint);
+                return new RequestMatch(endpoint, actual);
             }
 
             return null;

@@ -83,7 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
+    <Compile Include="ObjectAssertionsExtensions.cs" />
+    <Compile Include="ResponseAndResult.cs" />
+    <Compile Include="ControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Owin;
 
@@ -6,35 +5,19 @@ namespace Faker.Library.Matchers
 {
     internal class RegexMatcher : IMatcher
     {
-        public EndpointMatch Match(IOwinRequest request, Endpoint endpoint)
+        public RequestMatch Match(Endpoint endpoint, Request actual)
         {
-            var regex = endpoint.Regex();
-
-            var requestPath = request.Path + request.QueryString;
-
-            var match = regex.Match(requestPath);
+            var regex = endpoint.Request.Url.Regex();
+            var match = regex.Match(actual.Url);
 
             if (
                 !match.Success ||
-                (endpoint.Method != request.Method && !endpoint.Methods.Contains(request.Method)))
+                (endpoint.Request.Method != actual.Method && !endpoint.Request.Methods.Contains(actual.Method)))
             {
                 return null;
             }
 
-            return new EndpointMatch(requestPath, endpoint, Replacements(endpoint, requestPath));
-        }
-
-
-        private static Dictionary<string, string> Replacements(Endpoint endpoint, string requestedUrl)
-        {
-            var regex = endpoint.Regex();
-            var regexMatch = regex.Match(requestedUrl);
-            var enumerable = regex.GetGroupNames()
-                .Where(x => x != "0")
-                .Select(x => new { Key = x, regexMatch.Groups[x].Value })
-                .Where(x => !string.IsNullOrEmpty(x.Value))
-                .ToDictionary(x => x.Key, x => x.Value);
-            return enumerable;
+            return new RequestMatch(endpoint, actual);
         }
     }
 }

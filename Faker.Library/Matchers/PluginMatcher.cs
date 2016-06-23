@@ -4,7 +4,7 @@ namespace Faker.Library.Matchers
 {
     internal class PluginMatcher : IMatcher
     {
-        public EndpointMatch Match(IOwinRequest request, Endpoint endpoint)
+        public RequestMatch Match(Endpoint endpoint, Request actual)
         {
             IMatcher internalMatcher;
             switch (endpoint.Matcher)
@@ -17,7 +17,7 @@ namespace Faker.Library.Matchers
                     break;
             }
 
-            return internalMatcher.Match(request, endpoint);
+            return internalMatcher.Match(endpoint, actual);
         }
     }
 }

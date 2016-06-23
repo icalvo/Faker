@@ -2,7 +2,7 @@ namespace Faker.Library.Replacers
 {
     internal class PluginReplacer : IReplacer
     {
-        public EndpointResponse Replace(EndpointMatch match)
+        public EndpointResponse Replace(RequestMatch match)
         {
             IReplacer internalReplacer;
             switch (match.Endpoint.Replacer)

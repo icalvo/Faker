@@ -1,26 +1,35 @@
 ﻿---
   -
-    url: "api/defaults"
+    request:
+        url: "api/defaults"
   - 
-    url: "api/statuscode"
-    method: GET
-    status-code: 502
-    content: |
-      {
-        "controller": "Fake",
-        "action": "{statusCode}"
-      }
+    request:
+        url: "api/statuscode"
+        method: GET
+    response:
+        status-code: 502
+        content: |
+          {
+            "controller": "Fake",
+            "action": "{statusCode}"
+          }
   - 
-    url: "api/multiplemethods"
-    methods: [ GET, POST ]
-    content: |
-      {
-        "controller": "Fake",
-        "action": "{statusCode}"
-      }
+    request:
+        url: "api/multiplemethods"
+        methods: [ GET, POST ]
+    response:
+        content: |
+          {
+            "controller": "Fake",
+            "action": "{statusCode}"
+          }
   - 
-    url: "api/match1/\\d+"
-    content: "match1"
+    request:
+        url: "api/match1/\\d+"
+    response:
+        content: "match1"
   - 
-    url: "api/match2/(?<number>\\d+)"
-    content: "replacement({number})"
+    request:
+        url: "api/match2/(?<number>\\d+)"
+    response:
+        content: "replacement(${number})"

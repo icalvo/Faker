@@ -9,16 +9,16 @@ namespace Faker.Library
             = new Dictionary<string, Regex>();
 
 
-        public static Regex Regex(this Endpoint endpoint)
+        public static Regex Regex(this string expression)
         {
             Regex regex;
-            if (Store.TryGetValue(endpoint.Url, out regex))
+            if (Store.TryGetValue(expression, out regex))
             {
                 return regex;
             }
 
-            regex = new Regex(endpoint.Url, RegexOptions.Compiled);
-            Store[endpoint.Url] = regex;
+            regex = new Regex(expression, RegexOptions.Compiled);
+            Store[expression] = regex;
             return regex;
         }
     }

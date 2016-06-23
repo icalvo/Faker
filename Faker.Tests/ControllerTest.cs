@@ -81,26 +81,4 @@ namespace Faker.Tests
             _server.Dispose();
         }
     }
-
-
-    public class ResponseAndResult
-    {
-        public ResponseAndResult(HttpResponseMessage response)
-        {
-            Response = response;
-            Result = response.Content.ReadAsStringAsync().Result;
-        }
-
-        public HttpResponseMessage Response { get; }
-        public string Result { get; }
-    }
-
-    public static class ObjectAssertionsExtensions
-    {
-        public static void ShouldNotMatchAnyRule(this ResponseAndResult actual)
-        {
-            actual.Response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            actual.Result.Should().Be("FAKER did not find any valid response.");
-        }
-    }
 }

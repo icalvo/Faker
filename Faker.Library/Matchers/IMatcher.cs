@@ -4,6 +4,6 @@ namespace Faker.Library.Matchers
 {
     internal interface IMatcher
     {
-        EndpointMatch Match(IOwinRequest request, Endpoint endpoint);
+        RequestMatch Match(Endpoint endpoint, Request actual);
     }
 }
